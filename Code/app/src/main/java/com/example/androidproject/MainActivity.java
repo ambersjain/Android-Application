@@ -53,26 +53,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-//
-//    public void onClickLogin(View view) {
-//
-//        Log.i("Info", "================================Button Pressed===============================");
-//        //Need to get the value of text put in the input field which we get from id name
-//
-//        EditText emailEditText = findViewById(R.id.emailEditText);
-//        // Can't leave the input field empty so:
-//        if (emailEditText.getText().toString().isEmpty())
-//        {
-//            Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Log.i("Values", emailEditText.getText().toString());
-//
-//            // Can make this more readable using if statements
-//            Toast.makeText(this, emailEditText.getText().toString() , Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
-
 }

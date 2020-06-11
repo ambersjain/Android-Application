@@ -157,7 +157,6 @@ public class OptionsActivity extends AppCompatActivity {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             updateListView();
         }
     }
