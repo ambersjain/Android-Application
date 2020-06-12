@@ -34,6 +34,30 @@ public class CovidActivity extends AppCompatActivity {
     String newDeaths;
     String TotalDeaths;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.covidhelp:
+                Intent intent = new Intent(getApplicationContext(), CovidInfoActivity.class);
+                intent.putExtra("url", "https://bing.com/covid");
+                startActivity(intent);
+                // launch a new activity with web views
+                return true;
+            default:
+                return false;
+        }
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
