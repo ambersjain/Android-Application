@@ -1,15 +1,39 @@
 package com.example.androidproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class CovidActivity extends AppCompatActivity {
+
+    String newConfirmed;
+    String totalConfirmed;
+    String newDeaths;
+    String TotalDeaths;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -23,6 +47,10 @@ public class CovidActivity extends AppCompatActivity {
         TextView textView12 = findViewById(R.id.textView12);
         TextView textView13 = findViewById(R.id.textView13);
         TextView textView14 = findViewById(R.id.textView14);
+        TextView textView5 = findViewById(R.id.textView5);
+        TextView textView6 = findViewById(R.id.textView6);
+        TextView textView7 = findViewById(R.id.textView7);
+        TextView textView8 = findViewById(R.id.textView8);
 
         Intent intent = getIntent();
 
@@ -33,11 +61,32 @@ public class CovidActivity extends AppCompatActivity {
         String TotalRecovered = intent.getStringExtra("TotalRecovered");
         String date = intent.getStringExtra("Date");
 
+
+        String NewConfirmedGlobal = intent.getStringExtra("newConfirmedGlobal");
+        String TotalConfirmedGlobal = intent.getStringExtra("totalConfirmedGlobal");
+        String NewDeathsGlobal = intent.getStringExtra("newDeathsGlobal");
+        String TotalDeathsGlobal = intent.getStringExtra("totalDeathsGlobal");
+
         countryTextView.setText("Country : " + country);
         textView10.setText("New Confirmed : " + NewConfirmed);
         textView11.setText("Total Confirmed : " + TotalConfirmed);
         textView12.setText("Total Deaths : " + TotalDeaths);
         textView13.setText("Total Recovered : " + TotalRecovered);
-        textView14.setText("Date : " + date);
+        textView14.setText("Last Updated : " + date);
+
+        // Putting the previously updated values as the API sometimes throws null values as well
+        if (NewConfirmedGlobal == null || TotalConfirmedGlobal == null || NewDeathsGlobal == null || TotalDeathsGlobal == null)
+        {
+            NewConfirmedGlobal = "Updating....";
+            TotalConfirmedGlobal = "Updating...";
+            NewDeathsGlobal = "Updating...";
+            TotalDeathsGlobal = "Updating...";
+        }
+
+        textView5.setText("New Confirmed : " + NewConfirmedGlobal);
+        textView6.setText("Total Confirmed : " + TotalConfirmedGlobal);
+        textView7.setText("New Deaths  : " + NewDeathsGlobal);
+        textView8.setText("Total Deaths : " + TotalDeathsGlobal);
+
     }
 }

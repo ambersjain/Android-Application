@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -35,8 +36,12 @@ public class OptionsActivity extends AppCompatActivity {
     ArrayList<String> totalConfirmed = new ArrayList<>();
     ArrayList<String> totalDeaths = new ArrayList<>();
     ArrayList<String> totalRecovered = new ArrayList<>();
-    ArrayList<String> date = new ArrayList<>();
-    ArrayList<String> global = new ArrayList<>();
+    ArrayList<String> date= new ArrayList<>();
+
+    String newConfirmedGlobal;
+    String totalConfirmedGlobal ;
+    String newDeathsGlobal ;
+    String totalDeathsGlobal;
 
     ArrayAdapter arrayAdapter;
 
@@ -50,10 +55,8 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
 
         covidDB = this.openOrCreateDatabase("Covid", MODE_PRIVATE, null);
-
         // create the table
-        covidDB.execSQL("CREATE TABLE IF NOT EXISTS covidTable (Country VARCHAR PRIMARY KEY, NewConfirmed VARCHAR, TotalConfirmed VARCHAR, TotalDeaths VARCHAR, TotalRecovered VARCHAR, Date VARCHAR )");
-
+        covidDB.execSQL("CREATE TABLE IF NOT EXISTS covidTable (Country VARCHAR PRIMARY KEY, NewConfirmed VARCHAR, TotalConfirmed VARCHAR, TotalDeaths VARCHAR, TotalRecovered VARCHAR, Date VARCHAR)");
 
         DownloadData task = new DownloadData();
         try {
@@ -65,6 +68,7 @@ public class OptionsActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.countriesListView);
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, countries);
         listView.setAdapter(arrayAdapter);
+
 
         // transfering this data to other activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,12 +82,17 @@ public class OptionsActivity extends AppCompatActivity {
                 intent.putExtra("TotalRecovered", totalRecovered.get(position));
                 intent.putExtra("Date", date.get(position));
 
+
+                intent.putExtra("newConfirmedGlobal",newConfirmedGlobal);
+                intent.putExtra("totalConfirmedGlobal", totalConfirmedGlobal);
+                intent.putExtra("newDeathsGlobal", newDeathsGlobal);
+                intent.putExtra("totalDeathsGlobal", totalDeathsGlobal);
+
                 startActivity(intent);
             }
         });
 
         updateListView();
-
 
     }
 
@@ -106,6 +115,7 @@ public class OptionsActivity extends AppCompatActivity {
             totalConfirmed.clear();
             totalDeaths.clear();
             date.clear();
+
 
             do {
                 countries.add(c.getString(countryIndex));
@@ -143,9 +153,16 @@ public class OptionsActivity extends AppCompatActivity {
                     data = inputStreamReader.read();
                 }
 
+                // Getting the global data first
+
                 JSONObject jsonObject = new JSONObject(json);
+
+                newConfirmedGlobal = jsonObject.getJSONObject("Global").getString("NewConfirmed");
+                totalConfirmedGlobal = jsonObject.getJSONObject("Global").getString("TotalConfirmed");
+                newDeathsGlobal = jsonObject.getJSONObject("Global").getString("NewDeaths");
+                totalDeathsGlobal = jsonObject.getJSONObject("Global").getString("TotalDeaths");
+
                 JSONArray jsonArray = jsonObject.getJSONArray("Countries");
-                Log.i("Countries", String.valueOf(jsonArray));
 
                 // Delete the previous table before creating a new one
                 covidDB.execSQL("DELETE FROM covidTable");
@@ -161,9 +178,12 @@ public class OptionsActivity extends AppCompatActivity {
                         String totalRecovered = jsonElement.getString("TotalRecovered");
                         String date = jsonElement.getString("Date");
 
+
                         // Put all these json elements into the SQL table
 
                         String sql = "INSERT INTO covidTable (Country, NewConfirmed, TotalConfirmed, TotalDeaths, TotalRecovered, Date) VALUES (?, ?, ?, ?, ?, ?)";
+
+
                         SQLiteStatement statement = covidDB.compileStatement(sql);
                         statement.bindString(1, country);
                         statement.bindString(2, newConfirmed);
@@ -171,8 +191,8 @@ public class OptionsActivity extends AppCompatActivity {
                         statement.bindString(4, totalDeaths);
                         statement.bindString(5, totalRecovered);
                         statement.bindString(6, date);
-
                         statement.execute();
+
                     }
                 }
                 return json;
