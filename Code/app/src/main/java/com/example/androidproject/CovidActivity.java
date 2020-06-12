@@ -50,7 +50,7 @@ public class CovidActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.covidhelp:
                 Intent intent = new Intent(getApplicationContext(), CovidInfoActivity.class);
-                intent.putExtra("url", "https://bing.com/covid");
+                intent.putExtra("url", "https://www.bing.com/covid?vert=newsvideos");
                 startActivity(intent);
                 // launch a new activity with web views
                 return true;
