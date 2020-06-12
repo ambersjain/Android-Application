@@ -19,15 +19,8 @@ public class CovidActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String country = intent.getStringExtra("Countries");
 
-        countryTextView.setText("Country :                     " + country);
+        countryTextView.setText("Country : " + country);
 
 
-
-    }
-
-    public void onClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), CovidInfoActivity.class);
-        intent.putExtra("url", "https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert");
-        startActivity(intent);
     }
 }
