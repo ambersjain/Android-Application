@@ -31,7 +31,12 @@ public class OptionsActivity extends AppCompatActivity {
 
     // Creating a list to store countries
     ArrayList<String> countries = new ArrayList<>();
-    ArrayList<String> content = new ArrayList<>();
+    ArrayList<String> newConfirmed = new ArrayList<>();
+    ArrayList<String> totalConfirmed = new ArrayList<>();
+    ArrayList<String> totalDeaths = new ArrayList<>();
+    ArrayList<String> totalRecovered = new ArrayList<>();
+    ArrayList<String> date = new ArrayList<>();
+    ArrayList<String> global = new ArrayList<>();
 
     ArrayAdapter arrayAdapter;
 
@@ -61,11 +66,18 @@ public class OptionsActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, countries);
         listView.setAdapter(arrayAdapter);
 
+        // transfering this data to other activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), CovidActivity.class);
                 intent.putExtra("Countries", countries.get(position));
+                intent.putExtra("NewConfirmed", newConfirmed.get(position));
+                intent.putExtra("TotalConfirmed", totalConfirmed.get(position));
+                intent.putExtra("TotalDeaths", totalDeaths.get(position));
+                intent.putExtra("TotalRecovered", totalRecovered.get(position));
+                intent.putExtra("Date", date.get(position));
+
                 startActivity(intent);
             }
         });
@@ -81,12 +93,27 @@ public class OptionsActivity extends AppCompatActivity {
         Cursor c = covidDB.rawQuery("SELECT * FROM covidTable", null);
 
         int countryIndex = c.getColumnIndex("Country");
+        int newConfirmedIndex = c.getColumnIndex("NewConfirmed");
+        int totalConfirmedIndex = c.getColumnIndex("TotalConfirmed");
+        int totalDeathsIndex = c.getColumnIndex("TotalDeaths");
+        int totalRecoveredIndex = c.getColumnIndex("TotalRecovered");
+        int dateIndex = c.getColumnIndex("Date");
 
         if (c.moveToFirst()) {
             countries.clear();
+            newConfirmed.clear();
+            totalRecovered.clear();
+            totalConfirmed.clear();
+            totalDeaths.clear();
+            date.clear();
 
             do {
                 countries.add(c.getString(countryIndex));
+                newConfirmed.add(c.getString(newConfirmedIndex));
+                totalRecovered.add(c.getString(totalRecoveredIndex));
+                totalConfirmed.add(c.getString(totalConfirmedIndex));
+                totalDeaths.add(c.getString(totalDeathsIndex));
+                date.add(c.getString(dateIndex));
 
             } while (c.moveToNext());
 
