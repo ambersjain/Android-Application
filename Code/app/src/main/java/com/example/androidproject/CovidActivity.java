@@ -29,11 +29,6 @@ import java.net.URL;
 
 public class CovidActivity extends AppCompatActivity {
 
-    String newConfirmed;
-    String totalConfirmed;
-    String newDeaths;
-    String TotalDeaths;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

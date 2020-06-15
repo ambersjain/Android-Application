@@ -94,7 +94,7 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="350dp"
         android:layout_marginTop="240dp"
         android:text="Last Updated : "
         android:textColor="#FFFFFF"

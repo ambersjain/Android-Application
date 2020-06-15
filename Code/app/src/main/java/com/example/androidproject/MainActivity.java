@@ -38,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                     Intent optionsIntent = new Intent(MainActivity.this, OptionsActivity.class);
-                    //myIntent.putExtra("key", value); //Optional parameters
                     startActivity (optionsIntent);
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Email not found" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Email/Password not found" , Toast.LENGTH_SHORT).show();
                 }
 
             }
