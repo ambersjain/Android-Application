@@ -13,6 +13,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Sign Up information
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         final EditText emailEditText = findViewById(R.id.signUpEmailEditText);

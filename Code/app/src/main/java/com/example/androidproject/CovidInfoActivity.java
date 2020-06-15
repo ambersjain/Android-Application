@@ -15,11 +15,14 @@ public class CovidInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_info);
 
+        // Setting up the webview which is shown after user clicks the menu bar
+
         WebView webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
 
         webView.setWebViewClient(new WebViewClient());
 
+        // The intent is recieved from menu bar (CovidActivity)
         String url  = getIntent().getStringExtra("url");
         webView.loadUrl(url);
 

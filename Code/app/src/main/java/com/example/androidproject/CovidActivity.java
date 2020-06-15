@@ -29,6 +29,9 @@ import java.net.URL;
 
 public class CovidActivity extends AppCompatActivity {
 
+    // This activity displays the Covid data to the user, is launched from OptionsActivity
+
+    // This creates a menu and loads the webview for covid info
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -54,6 +57,8 @@ public class CovidActivity extends AppCompatActivity {
         }
     }
 
+
+    // This section gets the data as intent from OptionsActivity and displays it in text views
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
