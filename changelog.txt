@@ -2,3 +2,20 @@
 
 1.) Started researching on application ideas to work on.
 2.) Set-up a Github Repository and pushed text files.
+
+28th May 2020:
+1.) Narrowed down on COVID tracker application and started the design.
+
+4th June 2020:
+1.) Completed the Login page
+
+7th June 2020:
+1.) Completed the Sign up page using SQLite.
+2.) Researched COVID API's and tested it into the application.
+
+11th June 2020:
+1.) Completed the API integration
+
+12th June 2020:
+1.) Completed the web views page and tested the data.
+2.) Worked on design and color schema. 
